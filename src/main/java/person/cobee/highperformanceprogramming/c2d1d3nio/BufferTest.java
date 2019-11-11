@@ -11,7 +11,10 @@ import java.nio.ByteBuffer;
 public class BufferTest {
 
     public static void main(String[] args) {
-        ByteBuffer byteBuffer = ByteBuffer.allocate(4);
+        // 申请缓存块
+//        ByteBuffer byteBuffer = ByteBuffer.allocate(4);
+        // 使用堆外内存
+        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4);
         System.out.printf("bytebuffer的capactity=%d，位置position=%d，限制limit=%d\r\n", byteBuffer.capacity(), byteBuffer.position(), byteBuffer.limit());
         byteBuffer.put((byte) 1);
         byteBuffer.put((byte) 2);
@@ -25,8 +28,8 @@ public class BufferTest {
         System.out.printf("bytebuffer的capactity=%d，位置position=%d，限制limit=%d\r\n", byteBuffer.capacity(), byteBuffer.position(), byteBuffer.limit());
         // 清除已读数据
         System.out.println("清除已读数据");
-        //byteBuffer.compact();
-//        System.out.printf("bytebuffer的capactity=%d，位置position=%d，限制limit=%d\r\n", byteBuffer.capacity(), byteBuffer.position(), byteBuffer.limit());
+        byteBuffer.compact();
+        System.out.printf("bytebuffer的capactity=%d，位置position=%d，限制limit=%d\r\n", byteBuffer.capacity(), byteBuffer.position(), byteBuffer.limit());
         byteBuffer.put((byte) 4);
         byteBuffer.put((byte) 5);
         byteBuffer.put((byte) 6);
