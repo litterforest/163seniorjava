@@ -14,7 +14,7 @@ import java.nio.channels.SocketChannel;
  * @author cobee
  * @since 2019-11-11
  */
-public class NioServer {
+public class NioServer1 {
 
     public static void main(String[] args) throws IOException {
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();

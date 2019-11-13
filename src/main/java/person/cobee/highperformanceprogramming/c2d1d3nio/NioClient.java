@@ -40,7 +40,8 @@ public class NioClient {
         readBuffer.flip();
         byte[] cont = new byte[readBuffer.limit()];
         readBuffer.get(cont);
-        System.out.println("服务器反回的响应数据是：" + new String(cont));
+        System.out.println("服务器反回的响应数据是：");
+        System.out.println(new String(cont));
         scanner.close();
         socketChannel.close();
     }
