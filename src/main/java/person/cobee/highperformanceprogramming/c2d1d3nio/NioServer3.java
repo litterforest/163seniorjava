@@ -21,8 +21,6 @@ import java.util.Set;
  */
 public class NioServer3 {
 
-    private static List<SocketChannel> channels = new ArrayList<>();
-
     public static void main(String[] args) throws IOException {
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         serverSocketChannel.configureBlocking(false); // 设置成非阻塞
