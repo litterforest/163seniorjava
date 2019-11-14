@@ -77,6 +77,7 @@ public abstract class ReactorThread extends Thread {
         // 为什么register要以任务提交的形式，让reactor线程去处理？
         // 因为线程在执行channel注册到selector的过程中，会和调用selector.select()方法的线程争用同一把锁
         // 而select()方法实在eventLoop中通过while循环调用的，争抢的可能性很高，为了让register能更快的执行，就放到同一个线程来处理
+        //  如果向selector之中register一个为“0”的opts，表示此channel不关注任何类型的事件。（言外之意，register方法只是获取一个selectionKey，具体这个Channel对何种事件感兴趣，可以在稍后操作）
         FutureTask<SelectionKey> futureTask = new FutureTask<>(() -> channel.register(selector, 0, channel));
         taskQueue.add(futureTask);
         return futureTask.get();
