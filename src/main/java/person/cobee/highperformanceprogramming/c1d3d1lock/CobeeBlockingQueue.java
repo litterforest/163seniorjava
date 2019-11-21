@@ -15,8 +15,8 @@ import java.util.concurrent.locks.ReentrantLock;
 public class CobeeBlockingQueue {
 
     private Lock lock = new ReentrantLock();
-    private Condition putAwait = lock.newCondition(); // 入队操作的等待队列
-    private Condition takeAwait = lock.newCondition(); // 出队操作的等待队列
+    private Condition putCondition = lock.newCondition(); // 入队操作的等待队列
+    private Condition takeCondition = lock.newCondition(); // 出队操作的等待队列
 
     private int length; // 队列的长度
     private List list = new ArrayList();
@@ -36,10 +36,10 @@ public class CobeeBlockingQueue {
                 if(list.size() < length){ // 队列有空位
                     list.add(obj);
                     System.out.println("put:" + obj);
-                    takeAwait.signal();
+                    takeCondition.signal();
                     break;
                 }else{
-                    putAwait.await();
+                    putCondition.await();
                 }
             }
         } catch (InterruptedException e) {
@@ -60,10 +60,10 @@ public class CobeeBlockingQueue {
                 if(list.size() > 0){ // 队列里有元素
                     Object obj = list.remove(0);
                     System.out.println("take:" + obj);
-                    putAwait.signal();
+                    putCondition.signal();
                     return obj;
                 }else{
-                    takeAwait.await();
+                    takeCondition.await();
                 }
             }
         } catch (InterruptedException e) {
