@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class ReentrantLockTest {
 
-    private Lock lock = new ReentrantLock(); // 可重入锁
+    private Lock lock = new ReentrantLock(); // 可重入锁，同一个线程可以多次重入
 
     public void recursive(){
         lock.lock();
