@@ -3,7 +3,7 @@ package person.cobee.highperformanceprogramming.c1d3d4;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * 功能描述
+ * 线程安全，有顺序，适用于读操作远大于写操作的场景
  *
  * @author cobee
  * @since 2019-11-27
