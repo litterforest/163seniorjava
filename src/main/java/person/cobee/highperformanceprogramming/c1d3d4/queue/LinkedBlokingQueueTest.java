@@ -1,33 +1,34 @@
-package person.cobee.highperformanceprogramming.c1d3d4;
+package person.cobee.highperformanceprogramming.c1d3d4.queue;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- * 并发无界队列，方法操作不加锁，没有阻塞。
- * 批量操作不保证原子性，addAll, removeAll, retainAll, containsAll, equals, and toArray
- * size()方法，每次调用都会遍历整个链表，建议不要频繁调用。
+ * 无界队列，先进先出，有阻塞和非阻塞方法。可用于消费者和生产者模型
  *
  * @author cobee
  * @since 2019-11-28
  */
-public class ConcurrentLinkedQueueTest {
+public class LinkedBlokingQueueTest {
 
     public static void main(String[] args) throws InterruptedException {
-        ConcurrentLinkedQueue<String> q = new ConcurrentLinkedQueue<>();
-        // 消费者，1秒消费一个
+        LinkedBlockingQueue<String> q = new LinkedBlockingQueue<>();
+
+        // 消费者线程
         new Thread(() -> {
             while(true){
                 try {
                     Thread.sleep(1000L);
-                    String str = q.poll();
-                    System.out.println("消费" + str);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                String str = q.poll(); // 非阻塞的方法
+                System.out.println("消费" + str);
             }
         }).start();
+
         Thread.sleep(3000L);
-        // 生产者
+
+        // 生产者线程
         for(int i = 0; i < 6; i++){
             new Thread(() -> {
                 String str = Thread.currentThread().getName();
@@ -35,6 +36,7 @@ public class ConcurrentLinkedQueueTest {
                 System.out.println("生产" + str);
             }).start();
         }
+
     }
 
 }

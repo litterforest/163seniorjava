@@ -1,4 +1,4 @@
-package person.cobee.highperformanceprogramming.c1d3d4;
+package person.cobee.highperformanceprogramming.c1d3d4.list;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 

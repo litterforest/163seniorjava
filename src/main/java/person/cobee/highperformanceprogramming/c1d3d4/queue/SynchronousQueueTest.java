@@ -1,9 +1,9 @@
-package person.cobee.highperformanceprogramming.c1d3d4;
+package person.cobee.highperformanceprogramming.c1d3d4.queue;
 
 import java.util.concurrent.SynchronousQueue;
 
 /**
- * 同步队列，是阻塞的，里面不放置元素，手把手的交互数据
+ * 同步队列，是阻塞的，里面不放置元素，手把手的交换数据
  *
  * @author cobee
  * @since 2019-11-28

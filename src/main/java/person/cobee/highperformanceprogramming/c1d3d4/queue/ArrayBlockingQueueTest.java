@@ -1,4 +1,4 @@
-package person.cobee.highperformanceprogramming.c1d3d4;
+package person.cobee.highperformanceprogramming.c1d3d4.queue;
 
 import java.util.concurrent.ArrayBlockingQueue;
 
