@@ -1,7 +1,7 @@
 package person.cobee.highperformanceprogramming.c2d2d2filterchain.filterchain;
 
 /**
- * 功能描述
+ * 责任链的入口类
  *
  * @author cobee
  * @since 2019-12-04
