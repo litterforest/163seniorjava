@@ -29,6 +29,7 @@ public class MyCacheManager {
     public MyCacheManager(){
         // 定义一个定时任务，清理已过期的缓存数据
         Thread cleanerThread = new Thread(() -> {
+            // 获取当前线程是否设置了中断，如果没有就执行业务。然后启动线程，如果异常了就中断。
             while(!Thread.currentThread().isInterrupted()){
                 try {
                     Thread.sleep(CLEAN_UP_PERIOD_IN_SEC * 1000); // 每5秒清理缓存一次
