@@ -1,7 +1,5 @@
 package person.cobee.middleware.cache.java;
 
-import sun.misc.Cache;
-
 import java.lang.ref.SoftReference;
 import java.util.Map;
 import java.util.Set;
