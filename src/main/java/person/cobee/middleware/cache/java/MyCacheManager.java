@@ -125,6 +125,7 @@ public class MyCacheManager {
         }else{
             Cache cache = softReference.get();
             if(cache.isExpiry()){
+                cacheMap.remove(key); // 访问的时候被动删除元素
                 return null;
             }else{
                 return cache.getValue();

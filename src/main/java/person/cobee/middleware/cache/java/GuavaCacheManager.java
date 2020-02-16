@@ -21,17 +21,22 @@ public class GuavaCacheManager {
         LoadingCache<String, String> cacheManager = CacheBuilder.newBuilder()
                 // 同时有8个线程操作
                 .concurrencyLevel(8)
+                // 在写入操作之后多少秒缓存数据超期
                 .expireAfterWrite(8, TimeUnit.SECONDS)
+                // 初始容量
                 .initialCapacity(10)
+                // 在写入之后多少秒刷新
                 .refreshAfterWrite(1, TimeUnit.SECONDS)
+                // 可存放最大元素的个数
                 .maximumSize(100)
+                // 开启统计监控
                 .recordStats()
                 .removalListener((notification) -> {
                     System.out.println(notification.getKey() + " 被移除了，原因： " + notification.getCause());
                 })
                 .build(new CacheLoader<String, String>() {
                     @Override
-                    public String load(String key) throws Exception {
+                    public String load(String key) {
                         System.out.println("缓存没有时，从数据库加载" + key);
                         // TODO jdbc的代码~~忽略掉
                         return "cobee " + key;
