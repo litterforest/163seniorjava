@@ -16,9 +16,10 @@ public class ThreadStopTest {
         Thread.sleep(1000);
         // thread.stop(); 强制终止，线程直接销毁
         thread.interrupt();
-        while(thread.isAlive()){
-
-        }
+//        while(thread.isAlive()){
+//
+//        }
+        thread.join();
         calcRunnable.print();
     }
 
