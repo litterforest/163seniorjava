@@ -17,7 +17,6 @@ public class ThreadStateTest {
         thread1.start();
         Thread.sleep(3000L);
         System.out.println(thread1.getState().toString());
-        System.out.println(thread1.getState().toString());
 
         System.out.println();
         System.out.println("##############thread2 NEW -> RUNNABLE -> TIMED_WAITE -> RUNNABLE -> TERMINATED");
