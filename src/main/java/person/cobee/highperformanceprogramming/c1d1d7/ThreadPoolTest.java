@@ -74,7 +74,7 @@ public class ThreadPoolTest {
      * 固定线程池的使用方法，核心线程数量与最大线程数量一致，无界队列
      */
     private void threadPoolTest3() throws InterruptedException {
-        // Executors.newFixedThreadPool(5);
+//         Executors.newFixedThreadPool(5);
         // 核心线程数量5，最大线程数量5，空闲线程存活时间0秒，使用无界队列，队列的容量是无限大
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(5, 5, 0, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
         testCommon(threadPoolExecutor);
@@ -124,7 +124,7 @@ public class ThreadPoolTest {
      * 任务周期性地执行，任务不会并发执行，会等待上一个任务执行完再执行。
      */
     private void threadPoolTest6() throws InterruptedException {
-//        Executors.newScheduledThreadPool(5);
+        Executors.newScheduledThreadPool(5);
         ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(5);
         System.out.println("当前时间:" + System.currentTimeMillis());
         // 在多少秒之后执行一次
