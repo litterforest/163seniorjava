@@ -95,7 +95,7 @@ public class ThreadPoolTest {
         Thread.sleep(60000L);
         System.out.println("线程池大小：" + threadPoolExecutor.getPoolSize());
         System.out.println("线程池等待队列大小：" + threadPoolExecutor.getQueue().size());
-        // 停止接收任务，并且关闭线程池
+        // 停止接收任务，并且关闭线程池，在任务队列里面的任务会继续执行完毕
         threadPoolExecutor.shutdown();
     }
 
