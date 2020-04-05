@@ -19,7 +19,7 @@ public class Demo1Visibility {
             public void run() {
                 System.out.println("开始计数");
                 while(demo.isRunning){
-                    demo.i = 123;
+                    demo.i = 123; // 没有做指令重排，所以代码没问题，不存在可见性问题
                 }
                 System.out.println(demo.i);
             }
