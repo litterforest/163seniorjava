@@ -1,4 +1,4 @@
-package person.cobee.highperformanceprogramming.c1d2d3sync.cas.aba;
+package person.cobee.vo;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +17,15 @@ import java.io.Serializable;
 @ToString
 public class Node implements Serializable {
     private static final long serialVersionUID = -124514245856233752L;
+
+    public Node(String name) {
+        this.name = name;
+    }
+
+    public Node(String value, String name) {
+        this.value = value;
+        this.name = name;
+    }
 
     private String value;
     private String name;

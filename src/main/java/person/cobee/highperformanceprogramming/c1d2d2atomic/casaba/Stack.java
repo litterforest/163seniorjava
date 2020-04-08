@@ -1,8 +1,9 @@
-package person.cobee.highperformanceprogramming.c1d2d3sync.cas.aba;
+package person.cobee.highperformanceprogramming.c1d2d2atomic.casaba;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import person.cobee.vo.Node;
 
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicReference;
@@ -23,19 +24,14 @@ public class Stack implements Serializable {
     AtomicReference<Node> topRef = new AtomicReference<>();
 
     /**
-     * 栈顶对象，利用cas操作
-     */
-    private Node top;
-
-    /**
      * 入栈操作
      * @param newNode
      */
     public void push(Node newNode){
         Node oldTop = null;
         do {
-            oldTop = topRef.get();
-            newNode.setNext(oldTop);
+            oldTop = topRef.get(); // 第一次操作返回null
+            newNode.setNext(oldTop); // setNext就是null
         }while (!topRef.compareAndSet(oldTop, newNode));
     }
 
@@ -53,7 +49,7 @@ public class Stack implements Serializable {
             if(oldTop == null){    // 如果没有值，就返回null
                 return null;
             }
-            if(timeoutNanos != 0){
+            if(timeoutNanos > 0){
                 LockSupport.parkNanos(timeoutNanos);
             }
             newTop = oldTop.getNext();
