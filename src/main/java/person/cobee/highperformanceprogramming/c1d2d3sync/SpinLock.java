@@ -5,7 +5,10 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * 自旋锁：
  * 1，AtomicInteger通过自旋cas操作来修改整数的值
- * 2，如下，通过自旋来实现一个悲观锁
+ * 2，如下，通过cas自旋操作来实现一个悲观锁，也是排它锁，也是不可重入锁。
+ * 可以锁住整个线程，是一个很粗粒度的锁
+ *
+ * 缺点是消耗大量的cpu性能
  *
  * @author cobee
  * @since 2019-11-18
@@ -17,7 +20,7 @@ public class SpinLock {
     public void lock(){
         Thread thread = Thread.currentThread();
         while(!atomicReference.compareAndSet(null, thread)){
-
+            // 可以记录自旋的次数，次数变多了可以考虑sleep一下
         }
     }
 
