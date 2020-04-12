@@ -31,6 +31,12 @@ public class MyReentrantLock implements Lock {
 
     @Override
     public boolean tryLock() {
+        int oldCount = count.get();
+        if(oldCount != 0){ // 锁已经被别的线程拿走，本线程进入等待池
+            awaits.offer(Thread.currentThread());
+        } else { // 如果等于0说明可以使用cas进行抢锁
+
+        }
         return false;
     }
 
