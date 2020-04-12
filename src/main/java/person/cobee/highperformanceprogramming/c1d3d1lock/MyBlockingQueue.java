@@ -1,6 +1,6 @@
 package person.cobee.highperformanceprogramming.c1d3d1lock;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -12,16 +12,18 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author cobee
  * @since 2019-11-20
  */
-public class CobeeBlockingQueue {
+public class MyBlockingQueue {
 
     private Lock lock = new ReentrantLock();
+    // 有多个等待池
     private Condition putCondition = lock.newCondition(); // 入队操作的等待队列
+    // 有多个等待池
     private Condition takeCondition = lock.newCondition(); // 出队操作的等待队列
 
     private int length; // 队列的长度
-    private List list = new ArrayList();
+    private List<Object> list = new LinkedList<>();
 
-    public CobeeBlockingQueue(int length) {
+    public MyBlockingQueue(int length) {
         this.length = length;
     }
 
@@ -32,11 +34,11 @@ public class CobeeBlockingQueue {
     public void put(Object obj){
         lock.lock();
         try {
-            while(true){
+            while(true){ // 自旋操作，防止伪唤醒
                 if(list.size() < length){ // 队列有空位
                     list.add(obj);
                     System.out.println("put:" + obj);
-                    takeCondition.signal();
+                    takeCondition.signal(); // 唤醒阻塞的队列
                     break;
                 }else{
                     putCondition.await();
@@ -75,16 +77,16 @@ public class CobeeBlockingQueue {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        CobeeBlockingQueue cobeeBlockingQueue = new CobeeBlockingQueue(5);
+        MyBlockingQueue myBlockingQueue = new MyBlockingQueue(5);
         Thread th = new Thread(() -> {
             for(int i = 0; i < 20; i++){
-                cobeeBlockingQueue.put("元素:" + i);
+                myBlockingQueue.put("元素:" + i);
             }
         });
         th.start();
         Thread.sleep(3000L);
         for(int i = 0; i < 10; i++){
-            cobeeBlockingQueue.take();
+            myBlockingQueue.take();
             Thread.sleep(1000L);
         }
     }
