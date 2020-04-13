@@ -1,5 +1,9 @@
 package person.cobee.highperformanceprogramming.c1d3d1lock;
 
+import person.cobee.highperformanceprogramming.c1d2d2atomic.atomicbase.CounterUnSafe;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -31,6 +35,7 @@ public class MyReentrantLock implements Lock {
                         LockSupport.park(); // 当前线程进入阻塞状态
                     }else{ // 如果抢到锁，则从阻塞队列里面删除
                         awaits.poll();
+                        break;
                     }
                 }else{ // 伪唤醒
                     LockSupport.park();
@@ -98,4 +103,5 @@ public class MyReentrantLock implements Lock {
     public Condition newCondition() {
         return null;
     }
+
 }
