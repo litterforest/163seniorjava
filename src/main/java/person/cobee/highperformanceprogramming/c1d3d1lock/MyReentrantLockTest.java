@@ -14,7 +14,7 @@ import java.util.List;
 public class MyReentrantLockTest {
 
     volatile int i = 0;
-    private MyReentrantLock lock = new MyReentrantLock();
+    private MyReentrantLock lock = new MyReentrantLock(true);
 
     public void add(){
         lock.lock();
@@ -27,7 +27,7 @@ public class MyReentrantLockTest {
         List<Thread> threads = new ArrayList<>();
         for(int i = 0; i < 10; i++){
             Thread th = new Thread(() -> {
-                for(int j = 0; j < 10000; j++){
+                for(int j = 0; j < 1; j++){
                     ct.add();
                 }
                 System.out.println("done");

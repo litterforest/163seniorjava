@@ -23,6 +23,15 @@ public class MyReentrantLock implements Lock {
     private AtomicReference<Thread> owner = new AtomicReference<>(null);
     private AtomicInteger count = new AtomicInteger(0);
     private LinkedBlockingQueue<Thread> awaits = new LinkedBlockingQueue<>(); // 阻塞队列
+    private boolean isFair; // 是否为公平锁
+
+    public MyReentrantLock(){
+
+    }
+
+    public MyReentrantLock(boolean isFair){
+        this.isFair = isFair;
+    }
 
     @Override
     public void lock() {
@@ -51,6 +60,7 @@ public class MyReentrantLock implements Lock {
 
     @Override
     public boolean tryLock() {
+        System.out.println(Thread.currentThread() + ":进入获锁方法");
         int oldCount = count.get();
         if(oldCount != 0){ // 如果是同一个线程，则可重入，否则获取不到锁，因为锁已经被别的线程拿走
             Thread th = owner.get();
@@ -61,12 +71,30 @@ public class MyReentrantLock implements Lock {
                 return false;
             }
         } else { // 如果等于0说明可以使用cas进行抢锁
-            if(count.compareAndSet(oldCount, oldCount + 1)){
-                owner.set(Thread.currentThread());
-                return true;
+            if(isFair){ // 如果是公平锁，则需要判断好当前抢锁的线程是否在队头
+                if(awaits.peek() == Thread.currentThread()){
+                    return doCasLock(oldCount);
+                }else{
+                    return false;
+                }
             }else{
-                return false;
+                return doCasLock(oldCount);
             }
+        }
+    }
+
+    /**
+     * 通过cas抢锁
+     * @param oldCount
+     * @return
+     */
+    private boolean doCasLock(int oldCount){
+        if(count.compareAndSet(oldCount, oldCount + 1)){
+            owner.set(Thread.currentThread());
+            System.out.println(Thread.currentThread() + ":获取到锁");
+            return true;
+        }else{
+            return false;
         }
     }
 
