@@ -13,10 +13,13 @@ public class ArrayListTest {
 
     public static void main(String[] args) {
         ArrayList<String> list = new ArrayList<>();
-        list.add("a");
-        list.add("b");
-        list.add("c");
-        list.add("d");
+//        list.add("a");
+//        list.add("b");
+//        list.add("c");
+//        list.add("d");
+        for(int i=0; i < 11; ++i){
+            list.add("cobee");
+        }
 
         for(String str : list){
             System.out.println(str);
