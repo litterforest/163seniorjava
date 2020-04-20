@@ -14,11 +14,12 @@ import java.util.concurrent.CountDownLatch;
 public class CountDownLatchTest {
 
     public static void main(String[] args) throws InterruptedException {
-        testReverseCountDown();
+//        testReverseCountDown();
+        testForwardCountDown();
     }
 
     private static void testForwardCountDown() throws InterruptedException {
-        CountDownLatch countDownLatch = new CountDownLatch(5);
+        MyCountDownLatch countDownLatch = new MyCountDownLatch(5);
         for(int i = 0; i < 5; i++){
             new Thread(() -> {
                 Random random = new Random();

@@ -38,6 +38,8 @@ public class MySpecCache {
                     data = DataBase.queryData();
                     RedisCache.cacheMap.put(key, data);
                     cacheValid = true;
+                }else{
+                    data = RedisCache.cacheMap.get(key); // 如果被其它写线程修改了，这里就读取缓存里面的数据
                 }
             } finally {
                 readLock.lock(); // 锁降级，在写锁里面增加读锁，保证同一线程中数据不会变化。
