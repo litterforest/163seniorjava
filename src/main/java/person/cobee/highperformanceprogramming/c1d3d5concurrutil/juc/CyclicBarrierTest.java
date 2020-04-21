@@ -13,17 +13,19 @@ import java.util.concurrent.locks.LockSupport;
 public class CyclicBarrierTest {
 
     public static void main(String[] args) throws InterruptedException {
-        CyclicBarrier barrier = new CyclicBarrier(4);
+        MyCyclicBarrier barrier = new MyCyclicBarrier(4);
         for(int i = 0; i < 100; i++){
             new Thread(() -> {
-                try {
-                    barrier.await();
-                    System.out.println("开始上摩天轮");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (BrokenBarrierException e) {
-                    e.printStackTrace();
-                }
+                barrier.await();
+                System.out.println("开始上摩天轮");
+//                try {
+//                    barrier.await();
+//                    System.out.println("开始上摩天轮");
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                } catch (BrokenBarrierException e) {
+//                    e.printStackTrace();
+//                }
             }).start();
             Thread.sleep(1000L);
         }

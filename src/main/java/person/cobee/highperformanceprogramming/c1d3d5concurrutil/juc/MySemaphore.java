@@ -32,28 +32,35 @@ public class MySemaphore {
             setState(permits);
         }
 
+        /**
+         * 获取锁的算法
+         * @param arg
+         * @return
+         */
         @Override
         protected int tryAcquireShared(int arg) {
             for(;;){ // 自旋配合cas操作
                 int available = getState(); // 有多少个可用的
                 int remaing = available - arg; // 还剩下多少个
-                if(remaing < 0 || compareAndSetState(available, remaing)){
+                if(remaing < 0 || compareAndSetState(available, remaing))
                     return remaing;
-                }
             }
         }
 
+        /**
+         * 释放锁的算法
+         * @param arg
+         * @return
+         */
         @Override
         protected boolean tryReleaseShared(int arg) {
             for(;;){
                 int current = getState();
                 int nextCurrent = current + arg;
-                if(nextCurrent < current){
+                if(nextCurrent < current)
                     throw new Error("超过了最大允许计数");
-                }
-                if(compareAndSetState(current, nextCurrent)){
+                if(compareAndSetState(current, nextCurrent))
                     return true;
-                }
             }
         }
     }
