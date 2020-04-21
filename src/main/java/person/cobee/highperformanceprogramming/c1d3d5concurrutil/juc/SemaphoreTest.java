@@ -11,8 +11,8 @@ import java.util.concurrent.Semaphore;
 public class SemaphoreTest {
 
     public static void main(String[] args) {
-        Semaphore semaphore = new Semaphore(5);
-        for(int i = 0; i < 10; i++){
+        MySemaphore semaphore = new MySemaphore(5);
+        for(int i = 0; i < 1000; i++){
             new Thread(() -> {
                 try {
                     semaphore.acquire(); // 获得锁
