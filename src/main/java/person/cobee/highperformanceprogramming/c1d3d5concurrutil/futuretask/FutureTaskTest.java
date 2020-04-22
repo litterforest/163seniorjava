@@ -13,18 +13,27 @@ import java.util.concurrent.FutureTask;
 public class FutureTaskTest {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Callable<String> callable = new HelloWorldCallable();
-        Callable<String> callable2 = new HelloWorld2Callable();
-        FutureTask<String> futureTask = new FutureTask<>(callable);
-        FutureTask<String> futureTask2 = new FutureTask<>(callable2);
-        new Thread(futureTask).start();
-        new Thread(futureTask2).start();
-        String s2 = futureTask2.get();
-        System.out.println("first request done");
-        String s = futureTask.get();
-        System.out.println("second request done");
-        System.out.println(s);
-        System.out.println(s2);
+//        Callable<String> callable = new HelloWorldCallable();
+//        Callable<String> callable2 = new HelloWorld2Callable();
+//        FutureTask<String> futureTask = new FutureTask<>(callable);
+//        FutureTask<String> futureTask2 = new FutureTask<>(callable2);
+//        new Thread(futureTask).start();
+//        new Thread(futureTask2).start();
+//        String s2 = futureTask2.get();
+//        System.out.println("first request done");
+//        String s = futureTask.get();
+//        System.out.println("second request done");
+//        System.out.println(s);
+//        System.out.println(s2);
+
+        MyFutureTask future = new MyFutureTask(() -> {
+            System.out.println("execute call...");
+            Thread.sleep(3000L);
+            return "done...";
+        });
+        Thread thread = new Thread(future);
+        thread.start();
+        System.out.println(future.get());
     }
 
 }

@@ -50,6 +50,17 @@ public class ThreadPoolTest {
     private void threadPoolTest1() throws InterruptedException {
         // 核心线程数量5，最大线程数量10，空闲线程存活时间5秒，使用无界队列，队列的容量是无限大
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(5, 10, 5, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
+        Future<String> future = threadPoolExecutor.submit(new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                return null;
+            }
+        });
+        try {
+            String result = future.get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         testCommon(threadPoolExecutor);
     }
 
