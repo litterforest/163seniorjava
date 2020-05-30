@@ -41,6 +41,7 @@ public class ZkDistributedQueue {
                         String firstNode = currentChilds.get(0);
                         boolean deleteResult = zkClient.delete(queueNode + "/" + firstNode);
                         if(deleteResult){
+                            // TODO 做一些处理的代码
                             System.out.println(Thread.currentThread().getName() + ":消费了节点" + firstNode);
                         }
                     }
